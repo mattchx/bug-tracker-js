@@ -1,0 +1,79 @@
+function sortByPriority () {
+  issues.forEach((issue)=> {
+    const priorityNum;
+    switch (issue.sortByPriority) {
+      case "Low":
+        priorityNum = 1;
+      case "Medium":
+        priorityNum = 2;
+      case "Medium":
+        priorityNum = 3;
+    }
+    return priorityNum;
+  })
+  .sort((a, b) => {
+    return b.money - a.money;
+  }
+}
+
+ORIGINAL - with filter buttons in form in row with add button 
+<div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-dark">Add</button>
+          <span>
+            <strong class="mr-2">Sort By:   </strong> 
+            <button id="dateBtn" type="button" class="btn btn-outline-secondary px-4 mr-2">Date</button>
+            <button id="priorityBtn"type="button" class="btn btn-outline-secondary px-4 mr-2">Priority</button>
+          </span>
+        </div>
+
+ALERT - with added filter buttons
+<div class="d-flex justify-content-between">
+          <TEXT from alert>
+          <span>
+            <strong class="mr-2">Sort By:   </strong> 
+            <button id="dateBtn" type="button" class="btn btn-sm btn-outline-secondary px-4 mr-2">Date</button>
+            <button id="priorityBtn"type="button" class="btn btn-sm btn-outline-secondary px-4 mr-2">Priority</button>
+          </span>
+        </div>
+
+
+        Smooth scrolling with offset
+
+        const id = 'profilePhoto';
+const yOffset = -10; 
+const element = document.getElementById(id);
+const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+window.scrollTo({top: y, behavior: 'smooth'});
+
+
+Header 
+
+<div class="card">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+
+GRID
+let arrIndex = (arrIndex == null || arrIndex > issues.length) ? 0 : arrIndex;
+console.log(rowDivNeeded());
+console.log(0 % 2 == 0)
+console.log(arrIndex)
+// console.log(1 % 2 == 0)
+// console.log(2 % 2 == 0)
+
+
+FLEX in Bootstrap
+
+<div class="d-flex justify-content-start">...</div>
+<div class="d-flex justify-content-end">...</div>
+<div class="d-flex justify-content-center">...</div>
+<div class="d-flex justify-content-between">...</div>
+<div class="d-flex justify-content-around">...</div>

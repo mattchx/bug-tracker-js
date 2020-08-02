@@ -6,57 +6,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>JS Issue Tracker</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   </head>
-  <!-- <body onload="fetchIssues()"> -->
     <body>
-    <div class="container">
-      <div class="alert alert-warning alert-dismissible" role="alert">
+      <!-- NAV BAR -->
+      <nav class="navbar sticky-top navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand">
+          <div class="my-2 ml-3">
+            <h4>Issue Tracker Plus</h4>
+            
+          </div>
+          
+        </a>
+        
+        <form id="searchForm" class="form-inline mr-3">
+          <input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+          <span id='navAddBtn'></span>
+        </form>
+        
+      </nav>
+
+    <div class="container col-lg-10">
+      <div class="alert alert-info alert-dismissible fade show mt-4 mb-0" role="alert" id="welcome">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <span class="mb-0"> <strong>
-          Welcome to the Bug Tracker App. 
-        </strong></span>
-        <br>
-        <span>To submit a bug, enter the information in the form and then click <em>Add</em>.</span>
+        <span class="mb-0"> 
+        <strong>Welcome!</strong> Free feel to 'add' a new issue <em>or</em> 'search' for an existing one.</span>
          
       </div>
-      <h1>Bug Tracker App <small><em>Making your life easier</em></Making></small></h1>
-      <div class="jumbotron">
-        <h2>Add New Issue:</h2
+      
+      <div class="jumbotron pb-3 pt-3 mt-3">
+        <h5 class="text-center">Add New Issue</h5>
         <form id="issueInputForm">
           <div class="form-group">
-            <label for="issueDescInput">Description</label>
-            <input type="text" class="form-control" id="issueDescInput" placeholder="Describe the issue ...">
+            <label for="issueDescInput"><strong><em>Title</em></strong></label>
+            <input type="text" class="form-control" id="issueTitleInput" placeholder="Enter a title...">
           </div>
           <div class="form-group">
-            <label for="issueSeverityInput">Severity</label>
+            <label for="issueDescInput"><strong><em>Description</em></strong></label>
+            <input type="text" class="form-control" id="issueDescInput" placeholder="Enter an issue ...">
+          </div>
+          <div class="form-group">
+            <label for="issueSeverityInput"><strong><em>Priority</em></strong></label>
             <select id="issueSeverityInput" class="form-control">
+              
+              <option disabled default>Enter priority level ...</option>
               <option value="Low">Low</option>
               <option value="Medium">Medium</option>
               <option value="High">High</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="issueAssignedToInput">Assigned To</label>
-            <input type="text" class="form-control" id="issueAssignedToInput" placeholder="Enter responsible ...">
+            <label for="issueAssignedToInput"><strong><em>Assign To</em></strong></label>
+            <input type="text" class="form-control" id="issueAssignedToInput" placeholder="Enter a name ...">
           </div>
-          <button type="submit" class="btn btn-primary">Add</button>
+        <div class="d-flex">
+        <!-- <div class="d-flex justify-content-between"> -->
+          <button type="submit" class="btn btn-dark px-4">Add</button>
+          <!-- <span>
+            <strong class="mr-2">Sort By:   </strong> 
+            <button id="dateBtn" type="button" class="btn btn-outline-secondary px-4 mr-2">Date</button>
+            <button id="priorityBtn"type="button" class="btn btn-outline-secondary px-4 mr-2">Priority</button>
+          </span> -->
+        </div>
+          <div id='formAlert'></div>
         </form>
       </div>
       <div class="col-lg-12">
+      <div id="searchAlert" class="mb-4">
+        </div>
+      </div>
         <div id="issuesList">
+          <!-- Issues will appear here -->
         </div>
       </div>
       <div class="footer">
       </div>
     </div>
-    <!-- Chance JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.1.6/chance.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- JavaScript -->
+    <script src="main.js"></script>    
 
-
-    <script src="main.js"></script>
   </body>
+  
 </html>
+
+<!-- <div id="1234" class="card w-80">
+  <div class="card-header text-white bg-info justify-content-between">
+ HIGH
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><em>${title}</em></h5>
+    <p class="card-text"><span>${icons.cardText}</span> ${description}</p>
+    <p><span>${icons.person}</span> ${assignedTo}</p>
+    <p>${icons.alarm}<span class="mt-7">${date}</span></p>
+    <button type="button" class="btn btn-primary px-3 mr-2 ${
+      status == 'Closed' ? 'disabled' : ''
+    }" id="close" onclick="closeStatus(${id})">${
+  status == 'Closed' ? 'Completed' : 'Close'
+}</a>
+    <button type="button" class="btn btn-outline-secondary px-4 mr-2">Edit</button>
+    <button class="btn btn-warning">Delete</a>
+  
+  </div>
+</div> -->
