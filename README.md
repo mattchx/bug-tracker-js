@@ -50,3 +50,6 @@ Completed
 To Do
 - implement 'Add' button to nav bar on scroll point. 
 - add edit functionality (with modal?)
+# 2020.8.3
+TO DO
+- add modal with edit functionality

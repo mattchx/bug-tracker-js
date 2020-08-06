@@ -4,19 +4,21 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JS Issue Tracker</title>
+    <title>Issue Tracker Plus+</title>
     <!-- Latest compiled and minified CSS -->
+    <link rel="icon" href="/img/logo32.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   </head>
     <body>
       <!-- NAV BAR -->
-      <nav class="navbar sticky-top navbar-dark bg-dark justify-content-between">
+      <nav class="navbar sticky-top navbar-dark bg-dark justify-content-between py-0">
         <a class="navbar-brand">
           <div class="my-2 ml-3">
-            <h4>Issue Tracker Plus</h4>
-            
+            <h3>
+              <span><img class="mr-1" src="/img/logo32.png" alt=""></span>
+              <span><em>Issue Tracker Plus+</em></span>
+               </h3>
           </div>
-          
         </a>
         
         <form id="searchForm" class="form-inline mr-3">
@@ -32,7 +34,6 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <span class="mb-0"> 
         <strong>Welcome!</strong> Free feel to 'add' a new issue <em>or</em> 'search' for an existing one.</span>
-         
       </div>
       
       <div class="jumbotron pb-3 pt-3 mt-3">
@@ -49,8 +50,6 @@
           <div class="form-group">
             <label for="issueSeverityInput"><strong><em>Priority</em></strong></label>
             <select id="issueSeverityInput" class="form-control">
-              
-              <option disabled default>Enter priority level ...</option>
               <option value="Low">Low</option>
               <option value="Medium">Medium</option>
               <option value="High">High</option>
@@ -61,13 +60,7 @@
             <input type="text" class="form-control" id="issueAssignedToInput" placeholder="Enter a name ...">
           </div>
         <div class="d-flex">
-        <!-- <div class="d-flex justify-content-between"> -->
           <button type="submit" class="btn btn-dark px-4">Add</button>
-          <!-- <span>
-            <strong class="mr-2">Sort By:   </strong> 
-            <button id="dateBtn" type="button" class="btn btn-outline-secondary px-4 mr-2">Date</button>
-            <button id="priorityBtn"type="button" class="btn btn-outline-secondary px-4 mr-2">Priority</button>
-          </span> -->
         </div>
           <div id='formAlert'></div>
         </form>
@@ -83,6 +76,48 @@
       <div class="footer">
       </div>
     </div>
+
+    <!-- MODAL -->
+    <div class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Issue</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="issueInputForm">
+              <div class="form-group">
+                <label for="issueDescInput"><strong><em>Title</em></strong></label>
+                <input type="text" class="form-control" id="issueTitleInputModal" placeholder="Enter a title...">
+              </div>
+              <div class="form-group">
+                <label for="issueDescInput"><strong><em>Description</em></strong></label>
+                <input type="text" class="form-control" id="issueDescInputModal" placeholder="Enter an issue ...">
+              </div>
+              <div class="form-group">
+                <label for="issueSeverityInput"><strong><em>Priority</em></strong></label>
+                <select id="issueSeverityInputModal" class="form-control">
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="issueAssignedToInput"><strong><em>Assign To</em></strong></label>
+                <input type="text" class="form-control" id="issueAssignedToInputModal" placeholder="Enter a name ...">
+              </div>
+              <div id="modalAlert"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-dark" id="saveEdit">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
     
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -94,23 +129,3 @@
   </body>
   
 </html>
-
-<!-- <div id="1234" class="card w-80">
-  <div class="card-header text-white bg-info justify-content-between">
- HIGH
-  </div>
-  <div class="card-body">
-    <h5 class="card-title"><em>${title}</em></h5>
-    <p class="card-text"><span>${icons.cardText}</span> ${description}</p>
-    <p><span>${icons.person}</span> ${assignedTo}</p>
-    <p>${icons.alarm}<span class="mt-7">${date}</span></p>
-    <button type="button" class="btn btn-primary px-3 mr-2 ${
-      status == 'Closed' ? 'disabled' : ''
-    }" id="close" onclick="closeStatus(${id})">${
-  status == 'Closed' ? 'Completed' : 'Close'
-}</a>
-    <button type="button" class="btn btn-outline-secondary px-4 mr-2">Edit</button>
-    <button class="btn btn-warning">Delete</a>
-  
-  </div>
-</div> -->

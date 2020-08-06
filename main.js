@@ -15,7 +15,7 @@ const icons = {
   bell: `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2z"/>
   <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-</svg>`
+</svg>`,
 };
 
 // Elements
@@ -34,7 +34,7 @@ const searchForm = document.getElementById('searchForm');
 const searchAlert = document.getElementById('searchAlert');
 const navAddBtn = document.getElementById('navAddBtn');
 
-// Use expense tracker template
+// Data Structures
 const localStorageIssues = JSON.parse(localStorage.getItem('issues'));
 
 let issues = localStorage.getItem('issues') !== null ? localStorageIssues : [];
@@ -42,18 +42,19 @@ let issues = localStorage.getItem('issues') !== null ? localStorageIssues : [];
 function addIssue(e) {
   e.preventDefault();
 
-  welcome.style.display = 'none';
+  welcomeAlert.style.display = 'none';
 
   const description = document.getElementById('issueDescInput').value;
   const title = document.getElementById('issueTitleInput').value;
   const assignedTo = document.getElementById('issueAssignedToInput').value;
   const id = Math.floor(Math.random() * 100000000);
+  const key = issues == 0 ? 0 : issues.length + 1;
   const status = 'Open';
   const date = new Date();
   const severity = new Array(
     document.getElementById('issueSeverityInput').value
   );
-
+  console.log(key);
   switch (severity[0]) {
     case 'Low':
       severity.push(1);
@@ -76,6 +77,7 @@ function addIssue(e) {
     }, 2000);
   } else {
     const issue = {
+      key,
       id,
       title,
       description,
@@ -84,6 +86,8 @@ function addIssue(e) {
       status,
       date,
     };
+
+    console.log(issue);
 
     issues.push(issue);
 
@@ -190,6 +194,58 @@ function deleteIssue(id) {
   }, 2000);
 }
 
+function editIssue(id) {
+  console.log(id);
+
+  // -------------------------------------------- //
+  $('.modal').modal('show');
+
+  const modalAlert = document.getElementById('modalAlert');
+  const title = document.getElementById('issueTitleInputModal');
+  const description = document.getElementById('issueDescInputModal');
+  const severity = document.getElementById('issueSeverityInputModal');
+  const assignedTo = document.getElementById('issueAssignedToInputModal');
+
+  issues.forEach((issue) => {
+    if (issue.id == id) {
+      console.log('Got it!');
+      title.value = issue.title;
+      description.value = issue.description;
+      severity.value = issue.severity[0];
+      assignedTo.value = issue.assignedTo;
+      return;
+    }
+  });
+
+  // Event listener for SAVE in Edit Modal
+  const saveEditBtn = document.getElementById('saveEdit');
+
+  saveEditBtn.addEventListener('click', () => {
+    issues.forEach((issue) => {
+      if (issue.id == id.toString()) {
+        // issue = {id:id, title: title.value }
+        issue.title = title.value;
+        issue.description = description.value;
+        issue.assignedTo = assignedTo.value;
+        issue.severity = [
+          severity.value,
+          severity.value == 'Low' ? 1 : severity.value == 'Medium' ? 2 : 3,
+        ];
+      }
+    });
+    updateLocalStorage();
+    noScrollLoad();
+
+    modalAlert.innerHTML = `<div class="alert alert-success" role="alert">A simple success alert—check it out!</div>`;
+    saveEditBtn.setAttribute('disabled', true);
+    setTimeout(() => {
+      modalAlert.innerHTML = '';
+      saveEditBtn.removeAttribute('disabled');
+      $('.modal').modal('hide');
+    }, 1000);
+  });
+}
+
 function sortByPriority() {
   issues.sort((a, b) => {
     return a.severity[1] - b.severity[1];
@@ -236,11 +292,7 @@ function addIssueDOM(issue) {
   }`;
 
   const severityColor =
-    severity === 'Low'
-      ? 'success'
-      : severity === 'Medium'
-      ? 'info'
-      : 'danger';
+    severity === 'Low' ? 'success' : severity === 'Medium' ? 'info' : 'danger';
 
   console.log(severityColor);
 
@@ -258,13 +310,22 @@ function addIssueDOM(issue) {
       <p class="card-text"><span>${icons.cardText}</span> ${description}</p>
       <p><span>${icons.person}</span> ${assignedTo}</p>
       <p>${icons.alarm}<span class="mt-7">${date}</span></p>
-      <button type="button" class="btn btn-primary px-3 mr-2 ${
-        status == 'Closed' ? 'disabled' : ''
-      }" id="close" onclick="closeStatus(${id})">${
-    status == 'Closed' ? 'Completed' : 'Close'
-  }</a>
-      <button type="button" class="btn btn-outline-secondary px-4 mr-2">Edit</button>
-      <button class="btn btn-warning" onclick="deleteIssue(${id})">Delete</a>
+
+      ${/* CLOSE Btn */ ''}
+      <button type="button" class="btn btn-primary px-3 mr-2
+        ${ status == 'Closed' ? 'disabled' : ''}"
+        id="close" onclick="closeStatus(${id})" 
+        ${status == 'Closed' ? 'disabled' : ''}>
+        ${status == 'Closed' ? 'Completed' : 'Close'}
+      </button>
+      ${/* EDIT Btn */ ''}
+      <button type="button" class="btn btn-outline-secondary px-4 mr-2
+        ${status == 'Closed' ? 'disabled' : ''}"
+        ${status == 'Closed' ? 'disabled' : ''}
+        onclick="editIssue(${id.toString()})">Edit
+      </button>
+      ${/* DELETE Btn */ ''}
+      <button class="btn btn-warning" onclick="deleteIssue(${id})">Delete</button>
       
     </div>
   </div>
@@ -304,21 +365,15 @@ function noScrollLoad() {
 
 noScrollLoad();
 
+//Event Listeners
+issueInputForm.addEventListener('submit', addIssue);
+searchForm.addEventListener('submit', searchIssue);
+
+// Nav Add Issue button is added on scroll
 window.addEventListener('scroll', () => {
-  // scrollTop - distance from top
-  // clientHeight - height of the window
-  // scrollHeight - total scrollable height
-  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-  let scrollBottom = scrollHeight - scrollTop - clientHeight;
-  console.log(
-    scrollTop,
-    '+',
-    clientHeight,
-    '>=',
-    scrollHeight,
-    '-',
-    scrollBottom
-  );
+  // scrollTop - distance from top; clientHeight - height of the window; scrollHeight - total scrollable height
+  // let scrollBottom = scrollHeight - scrollTop - clientHeight;
+  const { scrollTop } = document.documentElement;
 
   if (scrollTop >= 450) {
     console.log("we're here!");
@@ -327,7 +382,3 @@ window.addEventListener('scroll', () => {
     navAddBtn.innerHTML = '';
   }
 });
-
-//Event Listeners
-issueInputForm.addEventListener('submit', addIssue);
-searchForm.addEventListener('submit', searchIssue);
