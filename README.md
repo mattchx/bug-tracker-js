@@ -1,55 +1,27 @@
-# bug-tracker-js
+## Issue Tracker Plus+
+[**View the site live here**](https://happy-panini-d37d87.netlify.app/)
 
-# Development Log
+### Details
+Issues can be created, deleted, closed, updated. 
 
-# 2020.7.21
-Completed
-- form fully functional with: Description, Severity, Assigned Person selections
-- Issues now can now be closed or deleted 
-To Do
-- upgraded bootstrap so must deal with styling updates: add icons, well, etc.
-# 2020.7.22
-Completed
-- added svg icons
-To do
-- format card
-- make card responsive with severity: high:red, medium:yellow, low:green
-# 2020.7.23
-Completed
-- Card is formated for large screens
-- Simple verifcation added to form
-- Alert for failing verifcation is added with time duration
-- Added correct spacing to all elements in form 
-- Welcome message is now closed on submit
-- New issues are not added to the top of the list(by most recent) using Element.insertAdjacentElement()
-- added closed button
-- Sort by time or priority
-- Add to form: date & time, Title and description
-- formated date
-- Close button: disabled and text to 'completed'
-To do
-- add comments option (*Long Term) with modal
-- Add search functionality
-- add comments 
-- add edit function
-- prevent page from going to the top at button click.
-- make nav more title responsive to small screen.
-# 2020.7.24
-Completed
-- Added search 
-To do
-- add setTimeout to scroll to compensate for wait
-- add correct scroll to view for sort by buttons
-# 2020.7.25
-Completed
-- scroll to Item on click
-# 2020.7.26
-Completed
-- adjusted search alert to account for empty array
-- implemented add button to nav bar on scroll
-To Do
-- implement 'Add' button to nav bar on scroll point. 
-- add edit functionality (with modal?)
-# 2020.8.3
-TO DO
-- add modal with edit functionality
+Sort issues by date or severity (low, medium, high)
+
+Issues can also be filtered by title (using search)
+
+### Licence
+
+Feel feel to clone this repo and use however you wish.
+
+### Tech Stack 
+Vanilla JS, Bootstrap, jQuery, and local storage
+
+## Preview
+
+### Add new issues
+<img width="960" alt="Screen Shot 2021-03-02 at 18 22 44" src="https://user-images.githubusercontent.com/55170649/109728637-9a539300-7b84-11eb-957f-9231b42482c6.png">
+
+### View issues
+<img width="958" alt="Screen Shot 2021-03-02 at 18 22 57" src="https://user-images.githubusercontent.com/55170649/109728651-a0497400-7b84-11eb-81e3-05fb7576591c.png">
+
+### Edit issue
+<img width="958" alt="Screen Shot 2021-03-02 at 18 23 22" src="https://user-images.githubusercontent.com/55170649/109728605-8d36a400-7b84-11eb-9e25-23c2d3733cec.png">
